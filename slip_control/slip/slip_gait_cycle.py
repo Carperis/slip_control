@@ -14,7 +14,7 @@ class SlipGaitCycle(object):
 
     def __init__(self, slip_model: SlipModel, t_flight: ndarray, flight_cartesian_traj: ndarray, t_stance: ndarray,
                  stance_polar_traj: ndarray, target_to_state: Optional[ndarray] = None,
-                 optimization_cost: Optional[float] = np.NaN):
+                 optimization_cost: Optional[float] = np.nan):
         """
         Class representing a Slip gait cycle composed of:
          - a flight phase: starting with the take-off (TO) event of a previous gait cycle and ending at the present cycle
@@ -28,10 +28,10 @@ class SlipGaitCycle(object):
         :param t_stance: (S,) Discrete time array during flight phase
         :param stance_polar_traj: (4, S) Polar state [theta,theta',r,r'] of the SLIP CoM at each time during
         the stance phase, in a reference frame centered at the foot contact point with the ground.
-        :param target_to_state: (6,) Optional cartesian target take-off state, used for control. Use np.NaN in the
-        dimensions of the cartesian state that are irrelevant for control (e.g. z''=np.NaN)
+        :param target_to_state: (6,) Optional cartesian target take-off state, used for control. Use np.nan in the
+        dimensions of the cartesian state that are irrelevant for control (e.g. z''=np.nan)
         :param optimization_cost: Optional scalar indicating the optimization cost of the gait cycle. By default is set 
-        to be the euclidean norm of the error between the real TO state and the target TO state (ignoring np.NaNs dims) 
+        to be the euclidean norm of the error between the real TO state and the target TO state (ignoring np.nans dims) 
         """
         self.slip_model = slip_model
         if not flight_cartesian_traj.shape[0] == 6:
@@ -53,7 +53,7 @@ class SlipGaitCycle(object):
                 self.touch_down_angle)
             assert self.t_flight[(-1)] == self.t_stance[
                 0], 'Touch down state should be in flight and stance trajectories'
-        self.target_to_state = np.array(target_to_state) if target_to_state is not None else np.ones((6,)) * np.NaN
+        self.target_to_state = np.array(target_to_state) if target_to_state is not None else np.ones((6,)) * np.nan
         self.optimization_cost = optimization_cost
         if not np.all(np.isnan(self.target_to_state)):
             self.target_to_state = np.ma.array((self.target_to_state), mask=(np.isnan(self.target_to_state)))
@@ -119,7 +119,7 @@ class SlipGaitCycle(object):
 class SlipGaitCycleCtrl(SlipGaitCycle):
 
     def __init__(self, slip_model, t_flight, flight_cartesian_traj, t_stance, stance_passive_polar_traj=None,
-                 stance_ctrl_polar_traj=None, control_signal=None, target_to_state=None, optimization_cost=np.NaN,
+                 stance_ctrl_polar_traj=None, control_signal=None, target_to_state=None, optimization_cost=np.nan,
                  ctrl_kwargs=None):
         """
         Class representing a Controlled Slip gait Cycle. This assumes the SLIP model is an actuated extended version
@@ -138,10 +138,10 @@ class SlipGaitCycleCtrl(SlipGaitCycle):
         :param stance_ctrl_polar_traj: (4, S) Controlled Polar state [theta,theta',r,r'] of the SLIP CoM at each time 
         during the stance phase, in a reference frame centered at the foot contact point with the ground.
         :param control_signal: (2, S) Control input signal assumed to hold ()
-        :param target_to_state: (6,) Optional cartesian target take-off state, used for control. Use np.NaN in the
-        dimensions of the cartesian state that are irrelevant for control (e.g. z''=np.NaN)
+        :param target_to_state: (6,) Optional cartesian target take-off state, used for control. Use np.nan in the
+        dimensions of the cartesian state that are irrelevant for control (e.g. z''=np.nan)
         :param optimization_cost: Optional scalar indicating the optimization cost of the gait cycle. By default is set
-        to be the euclidean norm of the error between the real TO state and the target TO state (ignoring np.NaNs dims)
+        to be the euclidean norm of the error between the real TO state and the target TO state (ignoring np.nans dims)
         :param ctrl_kwargs: Dictionary holding controller-related keyword arguments.
         """
         self.control_signal = control_signal

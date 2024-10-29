@@ -3,7 +3,7 @@ import pathlib
 from typing import Union, List
 
 import numpy as np
-import pickle5 as pickle
+import pickle
 from numpy import ndarray
 from scipy.interpolate import interp1d
 

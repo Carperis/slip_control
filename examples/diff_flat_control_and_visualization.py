@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 1/10/21
-# @Author  : Daniel Ordonez 
+# @Author  : Daniel Ordonez
 # @email   : daniels.ordonez@gmail.com
 from math import pi as PI
 import numpy as np
@@ -14,7 +14,10 @@ from slip_control.controllers.target_to_states_generator import CycleStateGenera
 from slip_control.controllers.diff_flat_slip_controller import SlipDiffFlatController
 from slip_control.utils import plot_utils
 
-cmap = plt.cm.get_cmap('gist_heat')
+# import warnings
+# warnings.filterwarnings("ignore", category=UserWarning)
+
+cmap = plt.colormaps.get_cmap("gist_heat")
 
 if __name__ == "__main__":
 
